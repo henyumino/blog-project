@@ -8,6 +8,14 @@
     <h3>{{ blog.desc }}</h3>
     <p>{{ blog.created_at }}</p>
     <hr>
+    <form action="{% url 'blogs:comment' blog.id %}" method="post">
+        {% if errors %}
+            <p>{{ errors }}</p>
+        {% endif %}
+        {% csrf_token %}
+        <textarea name="desc" cols="40" rows="5"></textarea><br>
+        <input type="submit" value="submit">
+    </form>
     {% for comment in blog.comment_set.all %}
         <p>{{comment.desc}}</p>
     {% endfor %}
